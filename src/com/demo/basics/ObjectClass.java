@@ -1,5 +1,7 @@
 package com.demo.basics;
 
+import java.util.Objects;
+
 public class ObjectClass {
     public static void main(String[] args) {
 
@@ -24,6 +26,7 @@ public class ObjectClass {
         System.out.println(dog2);
 
         //callMethods(dog, dog1);
+        //equalsAndHashcode();
     }
 
     static void callMethods(Dog dog, Dog dog1){
@@ -31,6 +34,21 @@ public class ObjectClass {
         System.out.println(dog1 + " : " + dog1.wagTail());
         System.out.println(dog1 + " : " + dog1.celebrateBirthday());
         System.out.println(dog + " : " + dog.adoptDog("Neha"));
+    }
+
+    static void equalsAndHashcode(){
+        //Two objects with same data
+        Dog dog1 = new Dog("Husky",3,"Ollie","Rakesh");
+        Dog dog2 = new Dog("Husky",3,"Ollie","Rakesh");
+        System.out.println(dog1.hashCode() + " : " + dog2.hashCode());
+        System.out.println("Comparing Dog 1 and 2 : " + dog1.equals(dog2));
+
+        //References pointing to same object
+        Dog dog3 = dog1;
+        System.out.println(dog1.hashCode() + " : " + dog3.hashCode());
+        System.out.println("Comparing Dog 1 and 3 : " + dog1.equals(dog3));
+        System.out.println(dog1==dog3);
+        System.out.println(dog1==dog2);
     }
 }
 
