@@ -12,6 +12,7 @@ public class Keywords {
         BaseClass bobj1 = new BaseClass(66);
         System.out.println(bobj.addtoVal());
         System.out.println(bobj1.addtoVal());
+        bobj.finalMethod();
         //Setting static field, belongs to class, applies to all objects
         BaseClass.sval = 99;
         System.out.println("Bobj : " +  bobj + " -- Bobj1 : " + bobj1 );
@@ -41,7 +42,7 @@ class BaseClass{
 
     public BaseClass(){
         System.out.println("In BaseClass default constructor");
-        //fval = 29;
+        //cant reassigned final field fval = 29;
         //Inherited class fields not initialized yet
         System.out.println(this);
     }
@@ -63,9 +64,13 @@ class BaseClass{
                 ", static val=" + sval +
                 '}';
     }
+
+    public final void finalMethod(){
+        System.out.println("In Final Method");
+    }
 }
 
-class InheritedClass extends BaseClass{
+final class InheritedClass extends BaseClass{
 
     private int val = 9;
     static int sval = 20;
@@ -97,4 +102,15 @@ class InheritedClass extends BaseClass{
                 ", this static val=" + sval +
                 '}';
     }
+
+//    @Override
+//    public final void finalMethod(){
+//        System.out.println("In Final Method");
+//    }
+
 }
+
+
+//class InheritedClass1 extends InheritedClass{
+//
+//}
