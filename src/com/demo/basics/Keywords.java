@@ -1,13 +1,13 @@
 package com.demo.basics;
 
-public class Keywords {
+public final class Keywords {
 
     public static void main(String[] args) {
-        createBaseClasses();
-        //createInheritedClasses();
+        //createBaseClasses();
+        createInheritedClasses();
     }
 
-    public static void createBaseClasses(){
+    public final static void createBaseClasses(){
         final BaseClass bobj = new BaseClass();
         BaseClass bobj1 = new BaseClass(66);
         System.out.println(bobj.addtoVal());
@@ -72,6 +72,8 @@ class BaseClass{
 
 final class InheritedClass extends BaseClass{
 
+    //val
+    //sval
     private int val = 9;
     static int sval = 20;
 

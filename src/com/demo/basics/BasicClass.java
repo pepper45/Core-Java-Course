@@ -14,8 +14,10 @@ public class BasicClass {
 
     static Integer intObj = new Integer(6);
 
+    private Object field1;
+
     //User defined class
-    //static Dog dog = new Dog();
+    static Dog dog = new Dog();
 
     public static void main(String[] args) {
         System.out.println(obj);

@@ -26,20 +26,21 @@ public class ObjectClass {
         System.out.println(dog2);
 
         //callMethods(dog, dog1);
-        //equalsAndHashcode();
+        equalsAndHashcode();
     }
 
-    static void callMethods(Dog dog, Dog dog1){
+    static void callMethods(Dog dog, Dog dog1) {
         System.out.println(dog1 + " : " + dog1.bark());
         System.out.println(dog1 + " : " + dog1.wagTail());
         System.out.println(dog1 + " : " + dog1.celebrateBirthday());
         System.out.println(dog + " : " + dog.adoptDog("Neha"));
+        System.out.println(dog.getOwner());
     }
 
-    static void equalsAndHashcode(){
+    static void equalsAndHashcode() {
         //Two objects with same data
-        Dog dog1 = new Dog("Husky",3,"Ollie","Rakesh");
-        Dog dog2 = new Dog("Husky",3,"Ollie","Rakesh");
+        Dog dog1 = new Dog("Husky", 3, "Ollie", "Rakesh");
+        Dog dog2 = new Dog("Husky", 3, "Ollie", "Rakesh");
         System.out.println(dog1.hashCode() + " : " + dog2.hashCode());
         System.out.println("Comparing Dog 1 and 2 : " + dog1.equals(dog2));
 
@@ -47,8 +48,8 @@ public class ObjectClass {
         Dog dog3 = dog1;
         System.out.println(dog1.hashCode() + " : " + dog3.hashCode());
         System.out.println("Comparing Dog 1 and 3 : " + dog1.equals(dog3));
-        System.out.println(dog1==dog3);
-        System.out.println(dog1==dog2);
+        System.out.println(dog1 == dog3);
+        System.out.println(dog1 == dog2);
     }
 }
 
@@ -74,24 +75,25 @@ class Dog {
     }
 
     //Methods
-    public String bark(){
+    public String bark() {
         return "Woof Woof!";
     }
 
-    public String wagTail(){
+    public String wagTail() {
         return "Wagging tail!";
     }
 
-    public int celebrateBirthday(){
+    public int celebrateBirthday() {
         return this.age + 1;
     }
 
-    public String adoptDog(String owner){
+    public String adoptDog(String owner) {
         this.setOwner(owner);
         return this.getOwner();
     }
 
     //Setters and Getters
+
     public String getBreed() {
         return breed;
     }
@@ -124,26 +126,27 @@ class Dog {
         this.owner = owner;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Dog{" +
-//                "breed='" + breed + '\'' +
-//                ", age=" + age +
-//                ", name='" + name + '\'' +
-//                ", owner='" + owner + '\'' +
-//                '}';
-//    }
-//
-//        @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        Dog dog = (Dog) o;
-//        return age == dog.age && Objects.equals(breed, dog.breed) && Objects.equals(name, dog.name) && Objects.equals(owner, dog.owner);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(breed, age, name, owner);
-//    }
+
+    @Override
+    public String toString() {
+        return "Dog{" +
+                "breed='" + breed + '\'' +
+                ", age=" + age +
+                ", name='" + name + '\'' +
+                ", owner='" + owner + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Dog dog = (Dog) o;
+        return age == dog.age && breed.equals(dog.breed) && name.equals(dog.name) && owner.equals(dog.owner);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(breed, age, name, owner);
+    }
 }
