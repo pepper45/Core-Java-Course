@@ -40,7 +40,7 @@ public class StringsDemo {
         int lastNum = 1;
         int prevNum = 0;
         Instant start1 = Instant.now();
-        for (int index = 0; index < 40000; index++) {
+        for (int index = 0; index < 60000; index++) {
             int nextNum = prevNum + lastNum;
             s1 = s1 + nextNum + " ";
             prevNum = lastNum;
