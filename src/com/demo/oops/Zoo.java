@@ -26,6 +26,7 @@ public class Zoo {
         for(int i=0;i<tickets.length;i++){
             if(tickets[i]==null){
                 tickets[i] = ticket;
+                break;
             }
         }
     }
@@ -34,6 +35,7 @@ public class Zoo {
         for(int i=0;i<animals.length;i++){
             if(animals[i]==null){
                 animals[i] = animal;
+                break;
             }
         }
     }
@@ -43,6 +45,7 @@ public class Zoo {
         for(int i=0;i<visitors.length;i++){
             if(visitors[i]==null){
                 visitors[i] = visitorName;
+                break;
             }
         }
         return this.currentVisitors;

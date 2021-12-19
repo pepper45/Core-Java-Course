@@ -7,8 +7,8 @@ import java.io.OutputStreamWriter;
 
 public class BufferedRWDemo {
     public static void main(String[] args) {
-        readData();
-        //writeData();
+        //readData();
+        writeData();
     }
 
     private static void readData(){

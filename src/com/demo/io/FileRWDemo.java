@@ -8,7 +8,7 @@ import java.nio.file.Files;
 
 public class FileRWDemo {
     public static void main(String[] args) {
-        readFile();
+        //readFile();
         readFileWithBufferedReader();
         //writeFile();
     }
@@ -29,13 +29,14 @@ public class FileRWDemo {
     private static void readFileWithBufferedReader(){
         String userDirectory = new File("").getAbsolutePath();
         System.out.println(userDirectory);
-        try (BufferedReader br = new BufferedReader(new FileReader("resources/input.txt"))) {
-            System.out.println(br.readLine());
-            StringBuffer sb = new StringBuffer(500);
-            CharBuffer cb = CharBuffer.wrap(sb);
-            br.read(cb);
-            System.out.println(br.readLine());
-            System.out.println(cb.get());
+        try (BufferedReader br = new BufferedReader(
+                new FileReader("D:/Projects/Core-Java-Course/input1.txt"))) {
+
+            String inputLine = "";
+            while ( (inputLine = br.readLine())!=null ){
+                System.out.println(inputLine + "ABC");
+            }
+
         } catch (Exception e) {
             System.out.println("Exception caught " + e);
             e.printStackTrace();
