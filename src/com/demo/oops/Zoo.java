@@ -1,5 +1,7 @@
 package com.demo.oops;
 
+import java.io.IOException;
+
 public class Zoo {
     protected String name;
     protected int capacity;
@@ -22,12 +24,23 @@ public class Zoo {
         this.visitors = new String[this.capacity];
     }
 
-    public void addTickets(Ticket ticket){
-        for(int i=0;i<tickets.length;i++){
-            if(tickets[i]==null){
-                tickets[i] = ticket;
-                break;
+    public void addTickets(Ticket ticket) {
+        try {
+            System.out.println(tickets[3]);
+            if (tickets[tickets.length - 1] != null) {
+                throw new RuntimeException("Tickets array is full!");
             }
+            for (int i = 0; i < tickets.length; i++) {
+                System.out.println("Current i : " + i);
+                if (tickets[i] == null) {
+                    tickets[i] = ticket;
+                    break;
+                }
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            System.out.println(" Tickets array is null");
         }
     }
 
@@ -40,7 +53,10 @@ public class Zoo {
         }
     }
 
-    public int visit(String visitorName){
+    public int visit(String visitorName) throws Exception {
+        if(visitors[visitors.length-1]!=null){
+            throw new Exception("Zoo is at max capacity!");
+        }
         this.currentVisitors++;
         for(int i=0;i<visitors.length;i++){
             if(visitors[i]==null){
