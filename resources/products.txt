@@ -1,0 +1,6 @@
+1,Shirt,567,4,WROGN
+2,Pant,999,3.5,Levis
+3,Saree,4500,4.5,BIBA
+4,Shirt,678,4.1,HRX
+5,Saree,6700,2.6,Aurelia
+6,Pant,4500,4.8,M&H
