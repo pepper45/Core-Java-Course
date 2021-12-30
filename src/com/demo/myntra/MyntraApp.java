@@ -2,12 +2,13 @@ package com.demo.myntra;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class MyntraApp {
 
     private static Map<Integer, Product> products = new TreeMap<>();
     private static Map<Integer, Customer> customers = new TreeMap<>();
-    private static Map<Integer,Order> myntraOrders = new TreeMap<>();
+    private static Map<Integer, Order> myntraOrders = new TreeMap<>();
     private static Map<String, Integer> productQuantities = new HashMap<>();
 
     public static void main(String[] args) {
@@ -30,7 +31,7 @@ public class MyntraApp {
                         } else if (line.equalsIgnoreCase("3")) {
                             showCustomerOrders(reader);
                         } else {
-
+                            showTwoHighestAmountOrders();
                         }
                     });
         } catch (Exception e) {
@@ -39,20 +40,67 @@ public class MyntraApp {
         }
     }
 
+    private static void showTwoHighestAmountOrders() {
+
+        //30,25,20,10
+
+        List<Double> orderAmounts = myntraOrders.entrySet()
+                .stream()
+                .map(order -> order.getValue()
+                        .getAmount())
+                .sorted(Comparator.reverseOrder())
+                .limit(2)
+                .collect(Collectors.toList());
+
+        System.out.println(orderAmounts.get(0) + " : " + orderAmounts.get(1));
+
+
+//        Set<Map.Entry<Integer,Order>> orders =  myntraOrders.entrySet();
+//
+//        List<Double> allAmounts = new ArrayList<>();
+//
+//        orders.forEach( order -> {
+//            double amount = order.getValue().getAmount();
+//            allAmounts.add(amount);
+//        });
+//
+//        Collections.sort(allAmounts, Comparator.reverseOrder()); //30,25,20,10
+//
+//        System.out.println(allAmounts.get(0) + " : " + allAmounts.get(1));
+
+        //1,2,3,4
+//        double highestAmount = 0;
+//        double secondHighestAmount = 0;
+//        for(  Map.Entry<Integer,Order> order : myntraOrders.entrySet() ){
+//            Order orderObject = order.getValue();
+//            double currentAmount = orderObject.getAmount();
+//            if(currentAmount > highestAmount){
+//                double currentHighestAmount = highestAmount;
+//                highestAmount = currentAmount;
+//                secondHighestAmount = currentHighestAmount;
+//            }
+//            else if(currentAmount > secondHighestAmount){
+//                secondHighestAmount = currentAmount;
+//            }
+//        }
+        //System.out.println("Highest amount : " + highestAmount);
+        //System.out.println("2nd Highest amount : " + secondHighestAmount);
+    }
+
     private static void showCustomerOrders(BufferedReader reader) {
-        try{
+        try {
             String customerName = reader.readLine();
-            customers.forEach((k,v) -> {
-                if(v.getName().equals(customerName)){
+            customers.forEach((k, v) -> {
+                if (v.getName()
+                        .equals(customerName)) {
                     Set<Order> customerOrders = v.getOrders();
-                    for(Order o : customerOrders){
+                    for (Order o : customerOrders) {
                         System.out.println(o);
                     }
                     //customerOrders.forEach( o -> System.out.println(o));
                 }
-            } );
-        }
-        catch (Exception e){
+            });
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -77,9 +125,10 @@ public class MyntraApp {
             Order order = new Order(id, product, fields[1],
                     customer, "NEW");
 
-            customer.getOrders().add(order);
+            customer.getOrders()
+                    .add(order);
 
-            myntraOrders.put(order.getId(),order);
+            myntraOrders.put(order.getId(), order);
 
             String productCategory = product.getCategory();
 
@@ -88,13 +137,12 @@ public class MyntraApp {
 
             System.out.println(currentQuantity);
 
-            productQuantities.put(productCategory,currentQuantity);
+            productQuantities.put(productCategory, currentQuantity);
 
             System.out.println(productQuantities.get(productCategory));
 
             System.out.println(customer);
-        }
-        catch (IOException ioException){
+        } catch (IOException ioException) {
             ioException.printStackTrace();
         }
     }
@@ -110,9 +158,8 @@ public class MyntraApp {
             Customer customer = new Customer(Integer.valueOf(fields[0]), fields[1],
                     Integer.valueOf(fields[2]), fields[3].charAt(0));
             System.out.println(customer);
-            customers.put(customer.getId(),customer);
-        }
-        catch (IOException ioException){
+            customers.put(customer.getId(), customer);
+        } catch (IOException ioException) {
             ioException.printStackTrace();
         }
     }

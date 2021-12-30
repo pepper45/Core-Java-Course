@@ -40,7 +40,7 @@ public class Customer {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, age, gender, orders);
+        return Objects.hash(id, name, age, gender);
     }
 
     public int getId() {

@@ -24,10 +24,9 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ", product=" + product +
+                //", product=" + product +
                 ", amount=" + amount +
                 ", address='" + address + '\'' +
-                ", customer=" + customer +
                 ", status='" + status + '\'' +
                 ", tax=" + tax +
                 '}';
@@ -43,7 +42,7 @@ public class Order {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, product, amount, address, customer, status, tax);
+        return Objects.hash(id, product, amount, address, status, tax);
     }
 
     public int getId() {
