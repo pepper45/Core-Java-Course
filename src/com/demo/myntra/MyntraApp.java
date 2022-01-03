@@ -12,6 +12,7 @@ public class MyntraApp {
     private static Map<String, Integer> productQuantities = new HashMap<>();
 
     public static void main(String[] args) {
+        System.out.println(Thread.currentThread());
         readProductsDataWithBufferedReader();
         showOptionsToUser();
         readUserInput();
@@ -27,7 +28,14 @@ public class MyntraApp {
                         } else if (line.equalsIgnoreCase("1")) {
                             readCustomerData(reader);
                         } else if (line.equalsIgnoreCase("2")) {
-                            placeOrder(reader);
+                            try {
+                                placeOrder(reader);
+                            } catch (CustomerNotCreatedException e) {
+                                System.out.println(e.getChildClassMessage() + ". Please enter 1 to create customer.");
+                            }
+                            catch (OutOfStockException e){
+                                System.out.println(e.getMessage());
+                            }
                         } else if (line.equalsIgnoreCase("3")) {
                             showCustomerOrders(reader);
                         } else {
@@ -68,7 +76,7 @@ public class MyntraApp {
 //
 //        System.out.println(allAmounts.get(0) + " : " + allAmounts.get(1));
 
-        //1,2,3,4
+//        1,2,3,4
 //        double highestAmount = 0;
 //        double secondHighestAmount = 0;
 //        for(  Map.Entry<Integer,Order> order : myntraOrders.entrySet() ){
@@ -83,8 +91,8 @@ public class MyntraApp {
 //                secondHighestAmount = currentAmount;
 //            }
 //        }
-        //System.out.println("Highest amount : " + highestAmount);
-        //System.out.println("2nd Highest amount : " + secondHighestAmount);
+//        System.out.println("Highest amount : " + highestAmount);
+//        System.out.println("2nd Highest amount : " + secondHighestAmount);
     }
 
     private static void showCustomerOrders(BufferedReader reader) {
@@ -105,7 +113,8 @@ public class MyntraApp {
         }
     }
 
-    private static void placeOrder(BufferedReader reader) {
+    private static void placeOrder(BufferedReader reader) throws CustomerNotCreatedException,
+            OutOfStockException {
         try {
             String orderData = reader.readLine();
             System.out.println(orderData);
@@ -125,15 +134,23 @@ public class MyntraApp {
             Order order = new Order(id, product, fields[1],
                     customer, "NEW");
 
-            customer.getOrders()
-                    .add(order);
-
-            myntraOrders.put(order.getId(), order);
+            if(customer!=null) {
+                customer.getOrders()
+                        .add(order);
+            }
+            else{
+                throw new CustomerNotCreatedException(501);
+            }
 
             String productCategory = product.getCategory();
 
             int currentQuantity = productQuantities.get(productCategory);
+            if(currentQuantity<=0){
+                throw new OutOfStockException("Product stock empty. Cannot place order!");
+            }
             currentQuantity--;
+
+            myntraOrders.put(order.getId(), order);
 
             System.out.println(currentQuantity);
 
@@ -173,6 +190,7 @@ public class MyntraApp {
     }
 
     private static void readProductsDataWithBufferedReader() {
+        System.out.println(Thread.currentThread());
         String userDirectory = new File("").getAbsolutePath();
         System.out.println(userDirectory);
         try (BufferedReader br = new BufferedReader(
@@ -195,7 +213,7 @@ public class MyntraApp {
                 System.out.println(val);
             }
 
-            productQuantities.put("Shirt", 50);
+            productQuantities.put("Shirt", 1);
             productQuantities.put("Pant", 100);
             productQuantities.put("Saree", 60);
             productQuantities.forEach((k, v) -> System.out.println(k + " : " + v));
